@@ -40,7 +40,7 @@ class CarController extends Controller
         ]);
        
       
-        $data['image'] =$this->uploadFile($request->image,'assets/images');
+        $data['image'] =$this->uploadFile($request->image,'assets/images/cars');
         Car::create($data);
         return redirect()->route('cars.index');
     }
@@ -77,7 +77,10 @@ class CarController extends Controller
             'image' => 'sometimes|required|mimes:png,jpg,jpeg|max:2048',
             'published'=> 'boolean',
         ]);
-        $data['image'] =$this->uploadFile($request->image,'assets/images');
+
+    if ($request->hasFile('image')) {
+        $data['image'] =$this->uploadFile($request->image,'assets/images/cars');
+    }
         Car::where('id', $id)->update($data);
         return redirect()->route('cars.index');
     }

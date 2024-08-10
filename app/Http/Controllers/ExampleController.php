@@ -14,10 +14,7 @@ class ExampleController extends Controller
         
         return view('cv');
     }
-    function contact() {
         
-        return view('contact');
-    }
     function uploadForm(){
         return view('upload');
     }
@@ -29,5 +26,9 @@ class ExampleController extends Controller
         return 'Uploaded';
         
 }
+  public function about() {
+        
+        return view('about');
+    }
 
 }

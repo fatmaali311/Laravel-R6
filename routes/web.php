@@ -54,9 +54,17 @@ Route::get('', function () {
 });
 
 
-Route::get('index',[ProductController::class,'index'])->name('product.index');
-Route::get('product/create',[ProductController::class,'addProduct'])->name('product.create');
+Route::get('fashion/index',[ProductController::class,'fashion'])->name('product.fashion');
+Route::get('products',[ProductController::class,'index'])->name('index');
+Route::get('product/create',[ProductController::class,'create'])->name('product.create');
 Route::post('product',[ProductController::class,'store'])->name('product.store');
+Route::get('product/{id}/edit',[ProductController::class,'edit'])->name('products.edit');
+Route::put('product/{id}',[ProductController::class,'update'])->name('product.update');
+
+
+
+Route::get('about',[ExampleController::class,'about']);
+
 
 // Route::prefix('accounts')->group(function(){
 //     Route::get('', function () {
