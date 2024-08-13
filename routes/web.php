@@ -65,7 +65,7 @@ Route::put('product/{id}',[ProductController::class,'update'])->name('product.up
 
 Route::get('about',[ExampleController::class,'about']);
 
-
+Route::get('student',[ExampleController::class,'test']);
 // Route::prefix('accounts')->group(function(){
 //     Route::get('', function () {
 //         return "accounts index";

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Traits\Common ;
 
@@ -23,7 +24,9 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view('add_car');
+        $categories =Category::select('id','category_name')->get();
+       
+        return view('add_car',compact('categories'));
     }
 
     /**
@@ -37,6 +40,7 @@ class CarController extends Controller
             'description' => 'required|string|max:1000',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'published'=> 'boolean',
+            'category_id' => 'required|exists:categories,id',
         ]);
        
       
@@ -62,7 +66,8 @@ class CarController extends Controller
         //get data of car to be update
         //select
         $car = Car::findOrFail($id);
-        return view('edit_car', compact('car'));
+        $categories =Category::all();
+        return view('edit_car', compact('car','categories'));
     }
 
     /**
@@ -76,6 +81,7 @@ class CarController extends Controller
             'description' => 'sometimes|required|string|max:1000',
             'image' => 'sometimes|required|mimes:png,jpg,jpeg|max:2048',
             'published'=> 'boolean',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
     if ($request->hasFile('image')) {

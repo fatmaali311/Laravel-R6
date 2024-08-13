@@ -43,6 +43,23 @@
             </div>
           </div>
           <div class="form-group mb-3 row">
+            <label for="category_name" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
+            <div class="col-md-10">
+              <select name="category_id" id="category_name" class="form-control">
+                <option value="">Select Category</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}" @selected(old('category_id', $car->category_id) == $category->id)>
+                  {{ $category->category_name }}
+                </option>
+                @endforeach
+              </select>
+              @error('category_id')
+              <div class="alert alert-warning">{{ $message }}</div>
+              @enderror
+            </div>
+          </div>
+
+          <div class="form-group mb-3 row">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Description:</label>
             <div class="col-md-10">
               <textarea id="" cols="30" rows="5" class="form-control py-2" name="description">{{old('description',$car->description)}}</textarea>
@@ -54,10 +71,10 @@
           <div class="form-group mb-3 row">
             <label class="form-label col-md-2 fw-bold text-md-end" for="image">image:</label>
             <div class="col-sm-10">
-              <input type="file" class="form-control py-2" id="image"   name="image"  >
+              <input type="file" class="form-control py-2" id="image" name="image">
               @if($car->image)
-                    <p>Current Image: <img src="{{ asset('assets/images/cars/' . $car->image) }}" alt="" style="max-width: 100px; height: auto;"></p>
-                @endif
+              <p>Current Image: <img src="{{ asset('assets/images/cars/' . $car->image) }}" alt="" style="max-width: 100px; height: auto;"></p>
+              @endif
             </div>
           </div>
           <hr>
