@@ -7,13 +7,17 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProductController;
 
-// Route::get('login', [ExampleController::class, 'login']);
+Route::get('login', [ExampleController::class, 'login']);
 // Route::get('cv', [ExampleController::class, 'cv']);
-// Route::get('contact', [ExampleController::class, 'contact']);
-Route::group([
+ Route::get('contact', [ExampleController::class, 'contact']);
+ Route::post('contact', [ExampleController::class, 'contactData'])->name('contactData');
+
+
+ Route::group([
     'prefix'=>'cars',
     'controller'=> CarController::class,
-    'as'=> 'cars.'
+    'as'=> 'cars.',
+    'middleware'=>'verified',
 ],function(){
     Route::get('create',  'create')->name('create');
     Route::post('',  'store')->name('store');
@@ -152,3 +156,7 @@ Route::post('contact-data', function(Request $request) {
 //     $message =$request->message;
 //     return "Name:$name <br> Email:$email <br> Subject:$subject <br> Message:$message";
 // })->name('contact-data');
+
+Auth::routes(['verify'=>true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
