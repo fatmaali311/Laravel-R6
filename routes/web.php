@@ -12,24 +12,33 @@ Route::get('login', [ExampleController::class, 'login']);
  Route::get('contact', [ExampleController::class, 'contact']);
  Route::post('contact', [ExampleController::class, 'contactData'])->name('contactData');
 
+ Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::group(['middleware' => 'verified'], function () {
+            //  CarController routes
+            Route::resource('cars', CarController::class);
+            Route::group([
+                'prefix' => 'cars',
+                'as' => 'cars.',
+                'controller' => CarController::class,
+            ],function(){
+        Route::get('create',  'create')->name('create');
+        Route::post('',  'store')->name('store');
+        Route::get('',  'index')->name('index');
+        Route::get('{id}/edit',  'edit')->name('edit');
+        Route::put('{id}',  'update')->name('update');
+        Route::get('details{id}',  'show')->name('details');
+        Route::get('{id}/delete',  'destroy')->name('destroy');
+        Route::get('trashed',  'showDeleted')->name('showDeleted');
+        Route::patch('{id}',  'restore')->name('restore');
+        Route::delete('{id}/delete',  'forceDelete')->name('forceDelete');
+    });
+}); 
+ });
 
- Route::group([
-    'prefix'=>'cars',
-    'controller'=> CarController::class,
-    'as'=> 'cars.',
-    'middleware'=>'verified',
-],function(){
-    Route::get('create',  'create')->name('create');
-    Route::post('',  'store')->name('store');
-    Route::get('',  'index')->name('index');
-    Route::get('{id}/edit',  'edit')->name('edit');
-    Route::put('{id}',  'update')->name('update');
-    Route::get('details{id}',  'show')->name('details');
-    Route::get('{id}/delete',  'destroy')->name('destroy');
-    Route::get('trashed',  'showDeleted')->name('showDeleted');
-    Route::patch('{id}',  'restore')->name('restore');
-    Route::delete('{id}/delete',  'forceDelete')->name('forceDelete');
-});
 
 
 // Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');

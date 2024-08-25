@@ -11,6 +11,7 @@ use App\Mail\ContactUsMail;
 class ExampleController extends Controller
 {
     function login() {
+        session()->flash('test1', 'First Laravel session');
         return view('login');
     }
     function contact() {
