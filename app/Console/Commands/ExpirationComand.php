@@ -18,6 +18,7 @@ class ExpirationComand extends Command
      * The console command description.
      *
      * @var string
+     * 
      */
     protected $description = 'Command description';
 

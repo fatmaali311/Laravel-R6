@@ -25,6 +25,7 @@ class SendEmailCommand extends Command
     /**
      * Execute the console command.
      */
+
     public function handle()
     {
         Mail::to('fatma@example.com')->send(new SendEmail);
