@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SocialController;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('login', [ExampleController::class, 'login']);
 // Route::get('cv', [ExampleController::class, 'cv']);
@@ -169,3 +171,7 @@ Route::post('contact-data', function(Request $request) {
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('auth/github/redirect', [SocialController::class,'redirect'])->name('socialLogin');
+ 
+Route::get('auth/github/callback', [SocialController::class,'callback']);

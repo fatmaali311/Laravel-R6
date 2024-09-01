@@ -25,13 +25,16 @@ class BackupDatabase extends Command
      */
     public function handle()
     {
-        $databaseName = env('DB_DATABASE');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
-        $host = env('DB_HOST');
-        $port = env('DB_PORT', '3306');
+        $databaseName = config('database.connections.mysql.database');
+        $username = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
+        $host = config('database.connections.mysql.host');
+        $port = config('database.connections.mysql.port');
+
+        
         $date = now()->format('Y-m-d_H-i-s');
         $backupFile = "backup/{$databaseName}_{$date}.sql";
+
 
         $command = "mysqldump --user={$username} --password={$password} --host={$host} --port={$port} {$databaseName} > " . storage_path($backupFile);
 
